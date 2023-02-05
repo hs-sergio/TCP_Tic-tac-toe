@@ -1,6 +1,7 @@
 package com.example.tcp_tictactoe;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -33,9 +34,10 @@ public class ServerTCP {
             CloseAll(socket, dataOut, dataIn);
         }
 
+
     }
 
-    public void reciveMove(){
+    public void reciveMove(int row, int col){
 
         new Thread(new Runnable() {
             @Override
@@ -46,8 +48,7 @@ public class ServerTCP {
                         // Primero recibimos el movimiento del oponente.
                         int row = dataIn.readInt();
                         int col = dataIn.readInt();
-                        int[] move = {row, col};
-                        System.out.println("Movimiento recibido: "+move.toString());
+                        System.out.println("Movimiento recibido: "+row+" "+col);
 
                         // Actualizamos la GUI con el método del controlador que nos lo permite.
                         Controller_Server_TicTacToe.ActualizarMovimiento(row, col);
@@ -93,6 +94,7 @@ public class ServerTCP {
                 dataIn.close();
             }
 
+            System.out.println("Cerrrando socket/dataOut/dataIn");
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -12,7 +12,13 @@ public class MainClient extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("GUI_Client_TicTacToe.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("GUI_Client_TicTacToe.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("GUI_Client_TicTacToe.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("GUI_Server_TicTacToe.fxml"));
+        Parent root = fxmlLoader.load();
+
         primaryStage.setTitle("Player 2: Tic Tac Toe!");
         primaryStage.setScene(new Scene(root, 800, 650));
         primaryStage.show();

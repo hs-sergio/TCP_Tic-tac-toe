@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tcp_tictactoe.Controller_Server_TicTacToe">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tcp_tictactoe.Controller_Server_TicTacToe">
     <children>
         <GridPane fx:id="Tablero" alignment="CENTER" gridLinesVisible="true" hgap="5.0" layoutX="187.0" layoutY="111.0" prefHeight="400.0" prefWidth="400.0" vgap="5.0">
             <columnConstraints>
@@ -23,7 +23,7 @@
                         <Font name="Consolas" size="50.0" />
                     </font>
                 </Button>
-                <Button fx:id="btn10" mnemonicParsing="false"  prefHeight="145.0" prefWidth="302.0" text="-" GridPane.columnIndex="1">
+                <Button fx:id="btn10" mnemonicParsing="false" prefHeight="145.0" prefWidth="302.0" text="-" GridPane.columnIndex="1">
                     <font>
                         <Font name="Consolas" size="50.0" />
                     </font>

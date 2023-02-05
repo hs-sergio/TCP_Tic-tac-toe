@@ -37,7 +37,7 @@ public class ClientTCP {
 
     }
 
-    public void reciveMove(){
+    public void reciveMove(int row, int col){
 
         new Thread(new Runnable() {
             @Override
@@ -49,7 +49,7 @@ public class ClientTCP {
                         int row = dataIn.readInt();
                         int col = dataIn.readInt();
                         int[] move = {row, col};
-                        System.out.println("Movimiento recibido: "+move.toString());
+                        System.out.println("Movimiento recibido: "+move[0]+" "+move[1]);
 
                         // Actualizamos la GUI con el método del controlador que nos lo permite.
                         Controller_Client_TicTacToe.ActualizarMovimiento(row, col);

@@ -4,7 +4,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -42,26 +45,33 @@ public class Controller_Client_TicTacToe implements Initializable {
     private Button btn22;
 
     @FXML
-    private GridPane Tablero;
+    private static GridPane Tablero;
 
     boolean turno;
-    String tablero[][] = new String[3][3];
+    static String[][] tablero = new String[3][3];
+
+    private static Button btn = new Button();
 
 
     private ClientTCP client;
+    private int rowRecibidos;
+    private int colRecibidos;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
 
-            client = new ClientTCP(new Socket("localhost", 5555));
+            client = new ClientTCP(new Socket("localhost", 5000));
             System.out.println("CLIENTE CONECTADO CON EL SERVIDOR");
 
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("ERROR CONECTANDO CON EL SERVIDOR");
         }
+
+        // Inicializar el tablero
+        Tablero = new GridPane();
 
 
         btn00.setOnAction(new EventHandler<ActionEvent>() {
@@ -191,6 +201,68 @@ public class Controller_Client_TicTacToe implements Initializable {
             }
         });
 
+        // Recibimos el movimiento del oponente.
+        client.reciveMove(rowRecibidos, colRecibidos);
+
+
+    }
+
+    public static void ActualizarMovimiento(int row, int col) {
+
+
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+
+                int[] move = {row, col};
+                // Actualizamos el tablero con la información
+                tablero[row][col] = "X";
+                System.out.println("Aqui tampoco entra no?");
+                System.out.println(row);
+                System.out.println(col);
+                int pos = row + col;
+
+                // Actualizar el tablero del servidor con el movimiento recibido
+                // Aqui entra
+                // Cargamos el tablero
+//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI_Server_TicTacToe.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                try {
+                    fxmlLoader.setLocation(getClass().getResource("GUI_Client_TicTacToe.fxml"));
+                    Parent root = fxmlLoader.load();
+                    Tablero = (GridPane) root.lookup("#Tablero");
+//                    btn = (Button) = null;
+//                    btn.setId("#btn"+pos);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                for (Node node : Tablero.getChildren()) {
+                    System.out.println("holaola");    // Aqui  entra
+
+                    if (node instanceof Button) {
+                        btn.setId("#btn" + pos);
+                        btn.setText("awebadasd");
+                        System.out.println("Entra siquiera aqui?");
+//                        btn = (Button) Tablero.lookup("#btn" + pos);
+//                        System.out.println(btn);
+//                        btn.setText("aweba");
+//                        System.out.println("Entra siquiera aqui?");
+
+//                        if(row == Tablero.getRowIndex(node) && col == Tablero.getColumnIndex(node)){
+//                            Button btnMod = (Button)node;
+//                            btnMod.setText("X");
+//                            btnMod.setDisable(true);
+//                        }
+
+                    }
+                }
+
+            }
+        });
+
     }
 
 
@@ -232,16 +304,7 @@ public class Controller_Client_TicTacToe implements Initializable {
 
     }
 
-    public static void ActualizarMovimiento ( int row, int col){
-
-        int[] move = {row, col};
-        System.out.println("");
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-            }
-        });
-
-    }
 
 }
+
+
